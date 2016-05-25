@@ -29,8 +29,17 @@ videos = [
       'http://stream.flowplayer.org/bauhaus/624x260.ogv'
     ],
     poster : '',
-    title : 'Whales'
-  },
+    title : 'Whales',
+    // Optional token
+    token:"Bearer=urn%3amicrosoft%3aazure%3amediaservices%3acontentkeyidentifier=8130520b-c116-45a9-824e-4a0082f3cb3c&Audience=urn%3atest&ExpiresOn=1450207516&Issuer=http%3a%2f%2ftestacs.com%2f&HMACSHA256=eV7HDgZ9msp9H9bnEPGN91sBdU7XsZ9OyB6VgFhKBAU%3d",
+    // Optional tokenType
+    tokenType:"AES",
+    // Optional timeRange 
+    timeRange:{
+      start:0, //sec
+      end:30
+    } 
+},
   {
     src : [
       'http://vjs.zencdn.net/v/oceans.mp4',
@@ -55,6 +64,10 @@ VideoJS receives a `next()` function which put in place the next video.
 ### prev
 
 VideoJS receives a `prev()` function which put in place the previous video.
+
+### stop
+
+Stops the playlist, reset the playlist , and set the player to the first item in playlist
 
 ### Events
 

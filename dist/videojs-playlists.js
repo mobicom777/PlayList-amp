@@ -1,5 +1,5 @@
 /*!
- * videojs-playlists - Playlists done right for Videojs
+ * amp-playlists - Playlists done right for Videojs
  * v0.2.0
  * 
  * copyright Antonio Laguna, Ori Ziv 2016
@@ -97,7 +97,7 @@
           // Add playlist item token if exists
           if(videos[i].token){
               newSource.protectionInfo = [{
-                  type: video[i].tokenType || "AES", 
+                  type: videos[i].tokenType || "AES", 
                   authenticationToken: videos[i].token
               }];
           }
