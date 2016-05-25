@@ -1,6 +1,6 @@
-#videojs-playlists
+#AMP Playlist plugin
 
-Convert to AMP Plugin
+Based on https://github.com/jgallen23/videojs-playLists
 
 ##Installation
 
