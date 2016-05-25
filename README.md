@@ -1,13 +1,13 @@
 #AMP Playlist plugin
 
 Playlists for Azure Media Player.
-Based on https://github.com/jgallen23/videojs-playLists 
+Based on videojs plugin https://github.com/jgallen23/videojs-playLists 
 
 ##Installation
 
 ###Bower
 
-`bower install videojs-playlists`
+`bower install amp-playlists` TBD
 
 ###Manual Download
 
@@ -23,30 +23,36 @@ In order to initialize `playList` you need to pass an array of videos with this 
 ```js
 videos = [
   {
+    
+    // Playlist item source object, can contain 1:n source types of the supported video file types
     src : [
-      'http://stream.flowplayer.org/bauhaus/624x260.webm',
-      'http://stream.flowplayer.org/bauhaus/624x260.mp4',
-      'http://stream.flowplayer.org/bauhaus/624x260.ogv'
+      '//example/path/to/myVideo.ism/manifest',
+      '//example/path/to/myVideo.webm',
+      '//example/path/to/myVideo.mp4',
+      '//example/path/to/myVideo.ogv'
     ],
     poster : '',
-    title : 'Whales',
+    title : 'Video 1',
+    
     // Optional token
     token:"Bearer=urn%3amicrosoft%3aazure%3amediaservices%3acontentkeyidentifier=8130520b-c116-45a9-824e-4a0082f3cb3c&Audience=urn%3atest&ExpiresOn=1450207516&Issuer=http%3a%2f%2ftestacs.com%2f&HMACSHA256=eV7HDgZ9msp9H9bnEPGN91sBdU7XsZ9OyB6VgFhKBAU%3d",
+    
     // Optional tokenType
     tokenType:"AES",
+    
     // Optional timeRange 
     timeRange:{
       start:0, //sec
       end:30
-    } 
+    }
+     
 },
   {
     src : [
-      'http://vjs.zencdn.net/v/oceans.mp4',
-      'http://vjs.zencdn.net/v/oceans.webm'
+      '//example/path/to/myVideo.ism/manifest',
     ],
     poster : 'http://www.videojs.com/img/poster.jpg',
-    title : 'Ocean'
+    title : 'Video 2'
   }
 ];
 ```
@@ -59,15 +65,15 @@ Use `player.playList(index)` to jump to a video into the playlist.
 
 ### next
 
-VideoJS receives a `next()` function which put in place the next video.
+AMP receives a `next()` function which put in place the next video.
 
 ### prev
 
-VideoJS receives a `prev()` function which put in place the previous video.
+AMP receives a `prev()` function which put in place the previous video.
 
 ### stop
 
-Stops the playlist, reset the playlist , and set the player to the first item in playlist
+AMP recieves a `stop()` function which stops the playlist, and resets it (set the player to the first item in playlist)
 
 ### Events
 
