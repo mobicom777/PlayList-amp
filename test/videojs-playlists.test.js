@@ -1,28 +1,46 @@
 
-suite('videojs-playlists', function() {
+suite('amp-playlists', function() {
   var player, videos, index;
   suiteSetup(function(){
-    videos = [
-      {
-        src : [
-          'http://stream.flowplayer.org/bauhaus/624x260.webm',
-          'http://stream.flowplayer.org/bauhaus/624x260.mp4',
-          'http://stream.flowplayer.org/bauhaus/624x260.ogv'
-        ],
-        poster : 'http://flowplayer.org/media/img/demos/functional.jpg',
-        title : 'Whales'
-      },
-      {
-        src : [
-          'http://vjs.zencdn.net/v/oceans.mp4',
-          'http://vjs.zencdn.net/v/oceans.webm'
-        ],
-        poster : 'http://www.videojs.com/img/poster.jpg',
-        title : 'Whales'
-      }
-    ];
-    player = videojs("example_video_1");
-    player.playList(videos);
+    // Init playlistItems
+        videos = [
+        {
+          src : [
+            //'http://stream.flowplayer.org/bauhaus/624x260.webm',
+            'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
+            //'http://stream.flowplayer.org/bauhaus/624x260.ogv'
+          ],
+          poster : 'http://flowplayer.org/media/img/demos/minimalist.jpg',
+          title : 'Video 1'
+        },
+        {
+          src : [
+            //'http://stream.flowplayer.org/night3/640x360.webm',
+            'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
+            //'http://stream.flowplayer.org/night3/640x360.ogv'
+          ],
+          poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
+          title : 'Video 2'
+        },
+        {
+          src : [
+            //'http://stream.flowplayer.org/functional/624x260.webm',
+            "http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest",
+            //'http://stream.flowplayer.org/functional/624x260.ogv'
+          ],
+          poster : 'http://flowplayer.org/media/img/demos/functional.jpg',
+          title : 'Video 3'
+        }
+      ];
+      var options = {
+          autoplay: true,
+          controls: true,
+          width: "640",
+          height: "400",
+          poster: ""
+      };
+    player = amp("example_video_1",options);
+    player.playlist(videos);
   });
 
   suite('#_init()', function(){
@@ -32,28 +50,32 @@ suite('videojs-playlists', function() {
     test('current video should be 0 after init',function(){
       assert.equal(player.pl.current,0);
     });
+    test('videos should include at least source',function(){
+      assert.equal(player.pl.videos[0].hasOwnProperty("src"),true);
+    });
   });
-  suite('#playList(index)',function(){
+  suite('#playlist(index)',function(){
     suiteSetup(function(){
       index = 1;
-      player.playList(index);
+      player.playlist(index);
     });
     test('current should change on index passing',function(){
       assert.equal(player.pl.current,index);
     });
     test('poster should match video poster',function(){
-      var poster = $('.vjs-poster').css('background-image').replace('url(','').replace(')','');
+      var poster = $('.vjs-poster').css('background-image').replace('url(','').replace(')','').replace(/\"/g,"");
       assert.equal(poster,videos[index].poster);
     });
   });
   suite('general',function(){
     setup(function(){
       index = 0;
-      player.playList(index);
+      player.playlist(index);
     });
     test('next video should autostart',function(done){
       player.one('loadedmetadata',function(){
         var duration = player.duration();
+        console.log(duration);
         player.currentTime(duration);
       });
       player.one('next',function(){
@@ -61,7 +83,7 @@ suite('videojs-playlists', function() {
       });
     });
     test('last video should fire event',function(done){
-      player.playList(1);
+      player.playlist(1);
       player.one('loadedmetadata',function(){
         var duration = player.duration();
         player.currentTime(duration);
@@ -74,7 +96,7 @@ suite('videojs-playlists', function() {
   suite('#next()',function(){
     setup(function(){
       index = 0;
-      player.playList(index);
+      player.playlist(index);
     });
     test('calling next increase the current video index',function(done){
       var currentVideo = player.pl.current;
@@ -95,7 +117,7 @@ suite('videojs-playlists', function() {
   suite('#prev()',function(){
     setup(function(){
       index = 1;
-      player.playList(index);
+      player.playlist(index);
     });
     test('calling prev decrease the current video index',function(done){
       var currentVideo = player.pl.current;

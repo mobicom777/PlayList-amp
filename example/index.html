@@ -19,7 +19,9 @@
     <script src="../dist/videojs-playlists.js"></script>
     <!--*****END OF Azure Media Player diagnostics logger plugin scripts*****-->
     <style>
-      
+      body{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
       ul{
         list-style: none;
         max-width: 400px;
@@ -44,6 +46,7 @@
     
     <button id="prev">Prev</button>
     <button id="next">Next</button>
+    <button id="stop">stop</button>
     
     <ul id="playlistContainer">
       
@@ -53,6 +56,7 @@
       // DOM References
       var prev          = document.getElementById("prev");
       var next          = document.getElementById("next");
+      var stop          = document.getElementById("stop");
       var listElm       = document.getElementById("playlistContainer");
       var playlistLinks = document.getElementsByTagName("a");
 
@@ -70,12 +74,25 @@
         {
           src : [
             //'http://stream.flowplayer.org/night3/640x360.webm',
-            'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
+            'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
             //'http://stream.flowplayer.org/night3/640x360.ogv'
           ],
           poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
           title : 'Video 2'
         },
+        {
+          src : [
+            //'http://stream.flowplayer.org/night3/640x360.webm',
+            'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+            //'http://stream.flowplayer.org/night3/640x360.ogv'
+          ],
+          poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
+          title : 'Video 2 - Start from 00:00:30',
+          timeRange:{
+            start:30,
+            end:40
+          }
+        },        
         {
           src : [
             //'http://stream.flowplayer.org/functional/624x260.webm',
@@ -141,12 +158,14 @@
       next.addEventListener("click", function(){
         player.next();
       });
+      
+      stop.addEventListener("click", function(){
+        player.stop();
+      });
        
     </script>
 
     <footer>
-        <br />
-        <p>&copy; Southworks 2016</p>
     </footer>
 </body>
 
