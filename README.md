@@ -1,4 +1,4 @@
-#videojs-playlists
+#AMP Playlist plugin
 
 Playlists for Azure Media Player.
 Based on https://github.com/jgallen23/videojs-playLists 
