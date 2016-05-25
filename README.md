@@ -1,6 +1,7 @@
 #videojs-playlists
 
-Sexy Playlists for VideoJS.
+Playlists for Azure Media Player.
+Based on https://github.com/jgallen23/videojs-playLists 
 
 ##Installation
 
