@@ -1,6 +1,6 @@
 #videojs-playlists
 
-Sexy Playlists for VideoJS.
+Convert to AMP Plugin
 
 ##Installation
 
