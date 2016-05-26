@@ -3,18 +3,14 @@
 Playlists for Azure Media Player.
 Based on videojs plugin https://github.com/jgallen23/videojs-playLists 
 
-##Installation
-
-TBD
-
-###Manual Download
-
-- [Development]()
-- [Production]()
 
 ##Demo
 
 A [demo](http://oriziv.github.io/amp-playlists) is now available to showcase what you can create with this plugin.
+
+##Installation
+
+TBD
 
 ##Usage
 
