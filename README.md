@@ -5,9 +5,7 @@ Based on videojs plugin https://github.com/jgallen23/videojs-playLists
 
 ##Installation
 
-// ###Bower
-
-// `bower install amp-playlists` 
+TBD
 
 ###Manual Download
 
@@ -15,6 +13,10 @@ Based on videojs plugin https://github.com/jgallen23/videojs-playLists
 - [Production]()
 
 ##Usage
+
+Just create a list of playlist items/videos , and call `player.playlist(items);` to set the playlist and start playing.
+Each item needs to include at least source. If 2 items has the same source the player will know
+to just jump to next point without setting the same source again.
 
 ### Initialize playList
 
@@ -41,6 +43,7 @@ videos = [
     tokenType:"AES",
     
     // Optional timeRange 
+    // If set then player will know to jump to relevant point due to this object.
     timeRange:{
       start:0, //sec
       end:30
@@ -88,11 +91,6 @@ A [demo](http://belelros.github.io/videojs-playLists/) is now available to showc
 
 ##Pending
 
-Pass video parameter to `next` and `prev` events. That should need to rewrite the trigger function from videojs since
-doesn't allow passing events.
-
-As a workaround, the `player.pl.current` is updated with the actual index and `player.pl.currentVideo` contains the
-video object.
 
 ##Development
 
