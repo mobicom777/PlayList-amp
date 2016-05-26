@@ -6,7 +6,7 @@ Based on videojs plugin https://github.com/jgallen23/videojs-playLists
 
 ##Demo
 
-A [demo](http://oriziv.github.io/amp-playlists) is now available to showcase what you can create with this plugin.
+A [demo](http://oriziv.github.io/amp-playlist) is now available to showcase what you can create with this plugin.
 
 ##Installation
 
