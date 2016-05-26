@@ -183,7 +183,6 @@
     };
 
     player.pl._setVideoSource = function(src, poster) {
-      console.log("set source");
       player.src(src);
       player.pl._updatePoster(poster);
     };
@@ -201,7 +200,6 @@
     player.pl._videoEnd = function(){
       if (player.pl.current === player.pl.videos.length -1){
         player.trigger('lastVideoEnded');
-        console.log('lastVideoEnded');
       }
       else {
         player.pl._resumeVideo();

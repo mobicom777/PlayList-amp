@@ -12,6 +12,10 @@ TBD
 - [Development]()
 - [Production]()
 
+##Demo
+
+A [demo](http://oriziv.github.io/amp-playlists) is now available to showcase what you can create with this plugin.
+
 ##Usage
 
 Just create a list of playlist items/videos , and call `player.playlist(items);` to set the playlist and start playing.
@@ -88,7 +92,7 @@ AMP recieves a `stop()` function which stops the playlist, and resets it (set th
   <tr><td>lastVideoEnded</td><td>Fired when the playlist has finished.</td></tr>
 </table>
 
-A [demo](http://belelros.github.io/videojs-playLists/) is now available to showcase what you can create with this plugin.
+
 
 ##Pending
 
