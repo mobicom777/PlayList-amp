@@ -18,7 +18,7 @@ Based on videojs plugin https://github.com/jgallen23/videojs-playLists
 
 ### Initialize playList
 
-In order to initialize `playList` you need to pass an array of videos with this structure:
+In order to initialize `playlist` you need to pass an array of videos with this structure:
 
 ```js
 videos = [
@@ -35,7 +35,7 @@ videos = [
     title : 'Video 1',
     
     // Optional token
-    token:"Bearer=urn%3amicrosoft%3aazure%3amediaservices%3acontentkeyidentifier=8130520b-c116-45a9-824e-4a0082f3cb3c&Audience=urn%3atest&ExpiresOn=1450207516&Issuer=http%3a%2f%2ftestacs.com%2f&HMACSHA256=eV7HDgZ9msp9H9bnEPGN91sBdU7XsZ9OyB6VgFhKBAU%3d",
+    token:"Bearer=......eV7HDgZ9msp9H9bnEPGN91sBdU7XsZ9OyB6VgFhKBAU%3d.....",
     
     // Optional tokenType
     tokenType:"AES",
@@ -61,7 +61,7 @@ Now, when videos plays they automatically jump to the next one. You also gain a 
 
 ### Jump to video
 
-Use `player.playList(index)` to jump to a video into the playlist.
+Use `player.playlist(index)` to jump to a video into the playlist.
 
 ### next
 
