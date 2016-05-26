@@ -18,7 +18,7 @@ Just create a list of playlist items/videos , and call `player.playlist(items);`
 Each item needs to include at least source. If 2 items has the same source the player will know
 to just jump to next point without setting the same source again.
 
-### Initialize playList
+### Initialize playlist
 
 In order to initialize `playlist` you need to pass an array of videos with this structure:
 
@@ -84,6 +84,7 @@ AMP recieves a `stop()` function which stops the playlist, and resets it (set th
   <tr><th>Name</th><th>Description</th></tr>
   <tr><td>next</td><td>Fired when you use the `next()` function or when one video finish and the next starts.</td></tr>
   <tr><td>prev</td><td>Fired when you use the `prev()` function.</td></tr>
+  <tr><td>stop</td><td>Fired when you use the `stop()` function.</td></tr>
   <tr><td>lastVideoEnded</td><td>Fired when the playlist has finished.</td></tr>
 </table>
 
