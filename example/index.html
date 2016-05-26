@@ -7,162 +7,185 @@
     <title>AMP Playlist</title>
     <meta name="description" content="Azure Media Player Diagnostics Logger plugin">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--*****START OF Azure Media Player scripts*****-->
-    <!--Note: DO NOT USE the "latest" folder in production. Replace "latest" with a version number like "1.0.0"-->
-    <!--EX:<script src="//amp.azure.net/libs/amp/1.0.0/azuremediaplayer.min.js"></script>-->
-    <!--Azure Media Player versions can be queried from //amp.azure.net/libs/amp/latest/docs/changelog.html-->
     <link href="http://amp.azure.net/libs/amp/latest/skins/amp-default/azuremediaplayer.min.css" rel="stylesheet">
     <script src="http://amp.azure.net/libs/amp/1.7.1/azuremediaplayer.min.js"></script>
-    <!--*****END OF Azure Media Player scripts*****-->
-    <!--*****START OF Azure Media Player diagnostics logger plugin scripts*****-->
     <script src="../dist/videojs-playlists.js"></script>
-    <!--*****END OF Azure Media Player diagnostics logger plugin scripts*****-->
+    
+    <!--CUSTOMIZED STYLES-->
     <style>
       body{
+        padding: 0;
+        margin: 0;
+        background: #eeeeee;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
       ul{
         list-style: none;
-        max-width: 400px;
+        text-align: left;
       }
       ul > li{
         padding: 10px;
+        margin: 5px;
         border:1px solid #dddddd;
       }
       ul > li > a{
         padding: 10px;
       }
+      .container{
+        padding: 10px;
+        width:960px;
+        margin: 0 auto;
+        background: white;
+      }
+      h1,h2,h3,h4,h5,h6{
+        text-align: center;
+      }
+      
+      #video-container{
+        width:640px;
+        text-align: center;
+        margin: 0 auto;
+      }
+      button{
+        cursor: pointer;
+            display: inline-flex;
+      }
+      i{
+        cursor: pointer;
+        font-size: 31px;
+        display: inline-block;
+        line-height: 11px;
+        vertical-align: middle;
+        color: #969696;
+        font-style: normal;
+        margin: 0 5px;
+      }
+
     </style>
 </head>
 
 <body>
-    <h1>AMP Playlist Sample</h1>
-
-    <video id="azuremediaplayer" class="azuremediaplayer amp-default-skin amp-big-play-centered" controls autoplay width="640"
-           height="400" tabindex="0"></video>
-    
-    <h3>Playlist</h3>
-    
-    <button id="prev">Prev</button>
-    <button id="next">Next</button>
-    <button id="stop">stop</button>
-    
-    <ul id="playlistContainer">
-      
-    </ul>
+  <div class="container">
+    <h1>AMP Playlist Example</h1>
+    <div id="video-container">
+        <video id="azuremediaplayer" class="azuremediaplayer amp-default-skin amp-big-play-centered" controls autoplay width="640"
+              height="400" tabindex="0">
+        </video>
+        <h3>Playlist</h3>
+        <button id="prev"><i>&blacktriangleleft;</i> Prev</button>
+        <button id="next"><i>&blacktriangleright;</i> Next</button>
+        <button id="stop"><i>&blacksquare;</i> Stop</button>
+        <ul id="playlistContainer"></ul>
+    </div>
+    </div>
     <script>
-      
-      // DOM References
-      var prev          = document.getElementById("prev");
-      var next          = document.getElementById("next");
-      var stop          = document.getElementById("stop");
-      var listElm       = document.getElementById("playlistContainer");
-      var playlistLinks = document.getElementsByTagName("a");
+      (function(){
+          // DOM References
+          var prev          = document.getElementById("prev");
+          var next          = document.getElementById("next");
+          var stop          = document.getElementById("stop");
+          var listElm       = document.getElementById("playlistContainer");
+          var playlistLinks = document.getElementsByTagName("a");
 
-      // Init playlistItems
-        var playlistItems = [
-        {
-          src : [
-            //'http://stream.flowplayer.org/bauhaus/624x260.webm',
-            'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
-            //'http://stream.flowplayer.org/bauhaus/624x260.ogv'
-          ],
-          poster : 'http://flowplayer.org/media/img/demos/minimalist.jpg',
-          title : 'Video 1'
-        },
-        {
-          src : [
-            //'http://stream.flowplayer.org/night3/640x360.webm',
-            'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-            //'http://stream.flowplayer.org/night3/640x360.ogv'
-          ],
-          poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
-          title : 'Video 2'
-        },
-        {
-          src : [
-            //'http://stream.flowplayer.org/night3/640x360.webm',
-            'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-            //'http://stream.flowplayer.org/night3/640x360.ogv'
-          ],
-          poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
-          title : 'Video 2 - Start from 00:00:30',
-          timeRange:{
-            start:30,
-            end:40
+          // Init playlistItems
+            var playlistItems = [
+            {
+              src : [
+                //'http://stream.flowplayer.org/bauhaus/624x260.webm',
+                'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
+                //'http://stream.flowplayer.org/bauhaus/624x260.ogv'
+              ],
+              poster : 'http://flowplayer.org/media/img/demos/minimalist.jpg',
+              title : 'Video 1'
+            },
+            {
+              src : [
+                //'http://stream.flowplayer.org/night3/640x360.webm',
+                'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                //'http://stream.flowplayer.org/night3/640x360.ogv'
+              ],
+              poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
+              title : 'Video 2'
+            },
+            {
+              src : [
+                //'http://stream.flowplayer.org/night3/640x360.webm',
+                'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+                //'http://stream.flowplayer.org/night3/640x360.ogv'
+              ],
+              poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
+              title : 'Video 2 - Start from 00:00:30',
+              timeRange:{
+                start:30,
+                end:40
+              }
+            },        
+            {
+              src : [
+                //'http://stream.flowplayer.org/functional/624x260.webm',
+                "http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest",
+                //'http://stream.flowplayer.org/functional/624x260.ogv'
+              ],
+              poster : 'http://flowplayer.org/media/img/demos/functional.jpg',
+              title : 'Video 3'
+            }
+          ];
+
+          
+          function playItem(item){
+            var index = item.getAttribute("data-index");
+            console.log("playing item: ", index);
+            player.playlist(index);
           }
-        },        
-        {
-          src : [
-            //'http://stream.flowplayer.org/functional/624x260.webm',
-            "http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest",
-            //'http://stream.flowplayer.org/functional/624x260.ogv'
-          ],
-          poster : 'http://flowplayer.org/media/img/demos/functional.jpg',
-          title : 'Video 3'
-        }
-      ];
+          
+          for(var i=0;i<playlistItems.length;i++){
+            
+            var li = document.createElement("li");
+            var link = document.createElement("a");
+            var img = document.createElement("img");
+            
+            link.text = playlistItems[i].title;
+            link.setAttribute("href","#");
+            link.setAttribute("data-index",i);
+            img.setAttribute("width", 80);
+            img.setAttribute("height", 45);
+            img.setAttribute("alt", "Image Thumb");
+            img.setAttribute("src", playlistItems[i].poster);
+            li.appendChild(img);
+            li.appendChild(link);
+            playlistContainer.appendChild(li);
+          }
+          
+          var options = {
+              autoplay: true,
+              controls: true,
+              width: "640",
+              height: "400",
+              poster: ""
+          };
 
-      
-      function playItem(item){
-        var index = item.getAttribute("data-index");
-        console.log("playing item: ", index);
-        player.playlist(index);
-      }
-      
-      for(var i=0;i<playlistItems.length;i++){
-        
-        var li = document.createElement("li");
-        var link = document.createElement("a");
-        var img = document.createElement("img");
-        
-        link.text = playlistItems[i].title;
-        link.setAttribute("href","#");
-        link.setAttribute("data-index",i);
-        img.setAttribute("width", 80);
-        img.setAttribute("height", 45);
-        img.setAttribute("alt", "Image Thumb");
-        img.setAttribute("src", playlistItems[i].poster);
-        li.appendChild(img);
-        li.appendChild(link);
-        playlistContainer.appendChild(li);
-      }
-      
-      var options = {
-          autoplay: true,
-          controls: true,
-          width: "640",
-          height: "400",
-          poster: ""
-      };
-
-        var player = amp("azuremediaplayer", options);
-        player.playlist(playlistItems); 
-        
-        
-      
-      for(var i=0; i<playlistLinks.length; i++){
-        playlistLinks[i].addEventListener("click", function(e){
-          e.preventDefault();
-          playItem(this);
-        })
-      }
-      
-      
-      
-      prev.addEventListener("click", function(){
-        player.prev();
-      });
-      
-      next.addEventListener("click", function(){
-        player.next();
-      });
-      
-      stop.addEventListener("click", function(){
-        player.stop();
-      });
-       
+            var player = amp("azuremediaplayer", options);
+            player.playlist(playlistItems); 
+            
+          for(var i=0; i<playlistLinks.length; i++){
+            playlistLinks[i].addEventListener("click", function(e){
+              e.preventDefault();
+              playItem(this);
+            })
+          }
+          
+          prev.addEventListener("click", function(){
+            player.prev();
+          });
+          
+          next.addEventListener("click", function(){
+            player.next();
+          });
+          
+          stop.addEventListener("click", function(){
+            player.stop();
+          });
+      }());
     </script>
 
     <footer>

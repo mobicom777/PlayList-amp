@@ -133,7 +133,7 @@
       player.pl.currentVideo = player.pl.videos[0];
       player.pause();
       player.currentTime(0);
-      
+      player.trigger('stop');
     };
     // Set item source
     player.pl._setVideo = function(index){
@@ -201,6 +201,7 @@
     player.pl._videoEnd = function(){
       if (player.pl.current === player.pl.videos.length -1){
         player.trigger('lastVideoEnded');
+        console.log('lastVideoEnded');
       }
       else {
         player.pl._resumeVideo();
@@ -215,6 +216,7 @@
     }
     else if (index === index){ // NaN
       player.pl._setVideo(index);
+      player.trigger("indexChanged");
       return player;
     }
     else if (typeof options === 'string' && typeof player.pl[options] !== 'undefined'){

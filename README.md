@@ -5,9 +5,9 @@ Based on videojs plugin https://github.com/jgallen23/videojs-playLists
 
 ##Installation
 
-###Bower
+// ###Bower
 
-`bower install amp-playlists` TBD
+// `bower install amp-playlists` 
 
 ###Manual Download
 
