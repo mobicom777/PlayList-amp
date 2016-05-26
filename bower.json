@@ -1,7 +1,7 @@
 {
   "name": "amp-playlists",
-  "description": "Playlists done right for Videojs",
-  "version": "0.2.0",
+  "description": "Playlists for Azure Media Player",
+  "version": "0.1.0",
   "homepage": "",
   "license": "MIT",
   "copyright": "Antonio Laguna, Ori Ziv",

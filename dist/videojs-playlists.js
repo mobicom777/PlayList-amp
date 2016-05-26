@@ -1,40 +1,15 @@
 /*!
- * amp-playlists - Playlists done right for Videojs
- * v0.2.0
+ * amp-playlists - Playlists for Azure Media Player
+ * v0.1.0
  * 
  * copyright Antonio Laguna, Ori Ziv 2016
  * MIT License
 */
+
 /**
-**************************************************** 
-********************* EXAMPLE **********************
-****************************************************
-**/
-
-// In order to initialize playList you need to pass an array of videos with this structure:
-
-////var videos = [
-////  {
-////    src : [
-////      'http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest'
-////    ],
-////    poster : '',      // Optional
-////    title : 'Title1', // Optional
-////    timeRange:{       // Optional
-////      start : 0,
-////      end : 432
-////    },
-////    token : "bearer eTRsdfsdf12124...." //Optional
-////  },
-////  {
-////    src : [
-////    'http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest'
-////    ],
-////    poster : 'http://www.videojs.com/img/poster.jpg',
-////    title : 'Ocean'
-////  }
-////];
-
+* Playlist plugin for Azure Media Player - Copyright (c) 2016 - Licensed MIT
+* Attribution: "videojs-playlist - v0.2.0" - Copyright (c) 2013 Antonio Laguna - Licensed MIT
+*/
 
 // AMP playlist plugin
 
@@ -42,7 +17,6 @@
   // Register AMP Plugin
   amp.plugin('playlist', playList);
 
-  //videojs-playlists.js
   function playList(options,arg){
     var player = this;
     player.pl = player.pl || {};
@@ -135,6 +109,7 @@
       player.currentTime(0);
       player.trigger('stop');
     };
+    
     // Set item source
     player.pl._setVideo = function(index){
       var currentPlayingSource = player.currentSrc();
@@ -222,7 +197,8 @@
       return player;
     }
   }
-
+  
+  // Prototype functions
   amp.Player.prototype.next = function(){
     this.pl._nextPrev('next');
     return this;

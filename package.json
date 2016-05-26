@@ -1,5 +1,5 @@
 {
-  "name": "videojs-playlists",
+  "name": "amp-playlists",
   "version": "0.2.0",
   "private": true,
   "devDependencies": {
