@@ -154,6 +154,14 @@
         } else {
           player.pl._setVideoSource(player.pl.videos[index].src, player.pl.videos[index].poster);
         }
+        
+        // Jump if has startPoint
+        if(player.pl.videos[index].timeRange){
+            startPoint = player.pl.videos[index].timeRange.start;
+            setTimeout(function(){
+              player.currentTime(startPoint);
+            });
+        }
       }
     };
 
