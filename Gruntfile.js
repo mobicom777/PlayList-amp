@@ -23,8 +23,8 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: 'lib/videojs-playlists.js',
-        dest: 'dist/videojs-playlists.js'
+        src: 'lib/amp-playlists.js',
+        dest: 'dist/amp-playlists.js'
       }
     },
     uglify: {
@@ -32,8 +32,8 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: 'dist/videojs-playlists.js',
-        dest: 'dist/videojs-playlists.min.js'
+        src: 'dist/amp-playlists.js',
+        dest: 'dist/amp-playlists.min.js'
       }
     },
     watch: {
