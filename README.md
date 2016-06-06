@@ -20,10 +20,10 @@ to just jump to next point without setting the same source again.
 
 ### Initialize playlist
 
-In order to initialize `playlist` you need to pass an array of videos with this structure:
+In order to initialize `playlist` you need to pass an array of items with this structure:
 
 ```js
-videos = [
+var items = [
   {
     
     // Playlist item source object, can contain 1:n source types of the supported video file types
@@ -58,6 +58,13 @@ videos = [
     title : 'Video 2'
   }
 ];
+
+// Create AMP Instance
+var player = amp("azuremediaplayer", {});
+
+// Init playlist
+player.playlist(items);
+
 ```
 
 Now, when videos plays they automatically jump to the next one. You also gain a couple of methods

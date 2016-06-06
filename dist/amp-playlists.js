@@ -103,10 +103,8 @@
     };
     
     player.pl._stopPlaylist = function(){
-      player.pl.current = 0;
-      player.pl.currentVideo = player.pl.videos[0];
+      player.pl._setVideo(0);
       player.pause();
-      player.currentTime(0);
       player.trigger('stop');
     };
     

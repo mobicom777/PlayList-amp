@@ -6,14 +6,14 @@ suite('amp-playlists', function() {
         videos = [
         {
           src : [
-            'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
+            'http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest',
           ],
           poster : 'http://flowplayer.org/media/img/demos/minimalist.jpg',
           title : 'Video 1'
         },
         {
           src : [
-            'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4',
+            'http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest',
           ],
           poster : 'http://flowplayer.org/media/img/demos/playlist/railway_station.jpg',
           title : 'Video 2'

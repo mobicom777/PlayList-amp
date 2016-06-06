@@ -5,7 +5,7 @@
   "homepage": "",
   "license": "MIT",
   "copyright": "Antonio Laguna, Ori Ziv",
-  "main": "dist/videojs-playlists.js",
+  "main": "dist/amp-playlists.js",
   "dependencies": {
   },
   "devDependencies": {
