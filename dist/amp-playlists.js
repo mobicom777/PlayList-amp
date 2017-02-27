@@ -2,14 +2,46 @@
  * amp-playlists - Playlists for Azure Media Player
  * v0.1.0
  * 
+ * copyright Antonio Laguna, Ori Ziv 2017
+ * MIT License
+*/
+/*!
+ * amp-playlists - Playlists done right for Videojs
+ * v0.2.0
+ * 
  * copyright Antonio Laguna, Ori Ziv 2016
  * MIT License
 */
-
 /**
-* Playlist plugin for Azure Media Player - Copyright (c) 2016 - Licensed MIT
-* Attribution: "videojs-playlist - v0.2.0" - Copyright (c) 2013 Antonio Laguna - Licensed MIT
-*/
+**************************************************** 
+********************* EXAMPLE **********************
+****************************************************
+**/
+
+// In order to initialize playList you need to pass an array of videos with this structure:
+
+////var videos = [
+////  {
+////    src : [
+////      'http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest'
+////    ],
+////    poster : '',      // Optional
+////    title : 'Title1', // Optional
+////    timeRange:{       // Optional
+////      start : 0,
+////      end : 432
+////    },
+////    token : "bearer eTRsdfsdf12124...." //Optional
+////  },
+////  {
+////    src : [
+////    'http://amssamples.streaming.mediaservices.windows.net/91492735-c523-432b-ba01-faba6c2206a2/AzureMediaServicesPromo.ism/manifest'
+////    ],
+////    poster : 'http://www.videojs.com/img/poster.jpg',
+////    title : 'Ocean'
+////  }
+////];
+
 
 // AMP playlist plugin
 
@@ -17,6 +49,7 @@
   // Register AMP Plugin
   amp.plugin('playlist', playList);
 
+  //videojs-playlists.js
   function playList(options,arg){
     var player = this;
     player.pl = player.pl || {};
@@ -29,8 +62,8 @@
         'ogv'          : 'video/ogg',
         'ism/manifest' : 'application/vnd.ms-sstr+xml'
       };
-      
-      if(!video){
+
+      if(!video || !video.split){
         return videoTypes.mp4;
       }
       var extension = video.split('.').pop();
@@ -67,14 +100,20 @@
               type : player.pl._guessVideoType(videos[i].src[j]),
               src : videos[i].src[j]
           };
-
+            
+          // In case of Safari, we change the way the video is displayed
+          if (amp.IS_SAFARI) {
+              newSource.disableUrlRewriter = true;
+              newSource.type = "application/vnd.apple.mpegurl";
+          }
           // Add playlist item token if exists
-          if(videos[i].token){
+          else if (videos[i].token) {
               newSource.protectionInfo = [{
                   type: videos[i].tokenType || "AES", 
                   authenticationToken: videos[i].token
               }];
           }
+
           aux.push(newSource);
         }
         videos[i].src = aux;
@@ -104,10 +143,8 @@
     
     player.pl._stopPlaylist = function(){
       player.pl._setVideo(0);
-      player.pause();
       player.trigger('stop');
     };
-    
     // Set item source
     player.pl._setVideo = function(index){
       var currentPlayingSource = player.currentSrc();
@@ -120,7 +157,7 @@
           player.pl._resumeVideo();
         }
 
-        // If the current item has the smae source like the prev one
+        // If the current item has the same source like the prev one
         // We just need to 'jump' and set the current time.
         if(currentPlayingSource  && currentPlayingSource.indexOf(player.pl.currentVideo.src[0].src)!==-1){
              try{
@@ -128,52 +165,65 @@
               if(player.pl.currentVideo.timeRange){
                 startPoint = player.pl.currentVideo.timeRange.start;
               }
-              setTimeout(function(){
-                player.currentTime(startPoint);
-              });
-               
+
+              
+                if(amp.IS_SAFARI){
+                  player.currentTime(startPoint);
+                }
+                else{
+                  setTimeout(function(){
+                    player.currentTime(startPoint);
+                  });
+                }
+              
+
              } catch(e){}
              
              if(player.paused()){
-               // Make sure it runs on other event loop (due to chromium bug)
-               setTimeout(function(){
-                  player.play();
-               },0);
+               if(amp.IS_SAFARI){
+                 player.play();
+               }
+               else{
+                // Make sure it runs on other event loop (due to chromium bug)
+                setTimeout(function(){
+                    player.play();
+                },0);
+               }
              }
              return;         
         }
-      
 
+        // Other source
         if (player.pl.getVideoSource) {
-
           player.pl.getVideoSource(player.pl.videos[index], function(src, poster) {
             player.pl._setVideoSource(src, poster);
           });
         } else {
-          player.pl._setVideoSource(player.pl.videos[index].src, player.pl.videos[index].poster);
-        }
-        
-        // Jump if has startPoint
-        if(player.pl.videos[index].timeRange){
-            startPoint = player.pl.videos[index].timeRange.start;
-            setTimeout(function(){
-              player.currentTime(startPoint);
-            });
+          player.pl._setVideoSource(player.pl.videos[index].src, player.pl.videos[index].poster, player.pl.videos[index].tracks);
         }
       }
     };
 
-    player.pl._setVideoSource = function(src, poster) {
-      player.src(src);
+    player.pl._setVideoSource = function(src, poster, tracks) {
+      if(tracks && tracks.length) {
+        player.src(src, tracks);
+      } else {
+        player.src(src);
+      }
       player.pl._updatePoster(poster);
     };
 
     // Resume play
     player.pl._resumeVideo = function(){
       player.one('loadstart',function(){
-        setTimeout(function(){
-            player.play();
-        },0);
+        if(amp.IS_SAFARI){
+          player.play();
+        }
+        else{
+          setTimeout(function(){
+              player.play();
+          },0);
+        }
       });
     };
 
@@ -181,6 +231,7 @@
     player.pl._videoEnd = function(){
       if (player.pl.current === player.pl.videos.length -1){
         player.trigger('lastVideoEnded');
+        
       }
       else {
         player.pl._resumeVideo();
@@ -203,8 +254,7 @@
       return player;
     }
   }
-  
-  // Prototype functions
+
   amp.Player.prototype.next = function(){
     this.pl._nextPrev('next');
     return this;
@@ -219,4 +269,3 @@
   };
 
 }).call(this); 
-
