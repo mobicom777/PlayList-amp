@@ -100,7 +100,7 @@
           var next          = document.getElementById("next");
           var stop          = document.getElementById("stop");
           var listElm       = document.getElementById("playlistContainer");
-          var playlistLinks = document.getElementsByTagName("a");
+          
 
           // Init playlistItems
             var playlistItems = [
@@ -161,6 +161,7 @@
             
             link.text = playlistItems[i].title;
             link.setAttribute("href","#");
+            link.setAttribute("class","playlist-item");
             link.setAttribute("data-index",i);
             img.setAttribute("width", 80);
             img.setAttribute("height", 45);
@@ -179,9 +180,11 @@
               poster: ""
           };
 
-            var player = amp("azuremediaplayer", options);
-            player.playlist(playlistItems); 
+          var player = amp("azuremediaplayer", options);
+          player.playlist(playlistItems); 
             
+          var playlistLinks = document.getElementsByClassName("playlist-item");
+          
           for(var i=0; i<playlistLinks.length; i++){
             playlistLinks[i].addEventListener("click", function(e){
               e.preventDefault();
